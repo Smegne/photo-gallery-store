@@ -1,0 +1,112 @@
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const mysql = require('mysql2/promise');
+const multer = require('multer');
+const router = express.Router();
+const upload = multer({ dest: './public/images/' });
+
+// Middleware to check if admin is logged in
+const isAuthenticated = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+};
+
+// Login Page
+router.get('/login', (req, res) => {
+    res.render('admin/login', { layout: 'layout', title: 'Admin Login' });
+});
+
+// Login Handler
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    });
+    const [rows] = await connection.execute('SELECT * FROM users WHERE username = ?', [username]);
+    if (rows.length > 0 && await bcrypt.compare(password, rows[0].password)) {
+        req.session.user = rows[0];
+        res.redirect('/admin/dashboard');
+    } else {
+        res.render('admin/login', { layout: 'layout', title: 'Admin Login', error: 'Invalid credentials' });
+    }
+});
+
+// Dashboard
+router.get('/dashboard', isAuthenticated, async (req, res) => {
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    });
+    const [photos] = await connection.execute('SELECT * FROM photos');
+    res.render('admin/dashboard', { layout: 'layout', title: 'Admin Dashboard', photos });
+});
+
+// Add Photo Page
+router.get('/add-photo', isAuthenticated, (req, res) => {
+    res.render('admin/add-photo', { layout: 'layout', title: 'Add Photo' });
+});
+
+// Add Photo Handler
+router.post('/add-photo', isAuthenticated, upload.single('image'), async (req, res) => {
+    const { name, description, category } = req.body;
+    const imagePath = `/images/${req.file.filename}`;
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    });
+    await connection.execute('INSERT INTO photos (name, description, image_path, category) VALUES (?, ?, ?, ?)', 
+        [name, description, imagePath, category]);
+    res.redirect('/admin/dashboard');
+});
+
+// Edit Photo Page
+router.get('/edit-photo/:id', isAuthenticated, async (req, res) => {
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    });
+    const [photos] = await connection.execute('SELECT * FROM photos WHERE id = ?', [req.params.id]);
+    res.render('admin/edit-photo', { layout: 'layout', title: 'Edit Photo', photo: photos[0] });
+});
+
+// Edit Photo Handler
+router.post('/edit-photo/:id', isAuthenticated, upload.single('image'), async (req, res) => {
+    const { name, description, category } = req.body;
+    const imagePath = req.file ? `/images/${req.file.filename}` : req.body.oldImage;
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    });
+    await connection.execute('UPDATE photos SET name = ?, description = ?, image_path = ?, category = ? WHERE id = ?', 
+        [name, description, imagePath, category, req.params.id]);
+    res.redirect('/admin/dashboard');
+});
+
+// Delete Photo
+router.post('/delete-photo/:id', isAuthenticated, async (req, res) => {
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    });
+    await connection.execute('DELETE FROM photos WHERE id = ?', [req.params.id]);
+    res.redirect('/admin/dashboard');
+});
+
+module.exports = router;

@@ -1,0 +1,468 @@
+/* General Styling */
+body {
+    background: #f8f9fa; /* Bootstrap light gray */
+    color: #212529; /* Bootstrap dark */
+}
+
+/* Navbar */
+.navbar {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #0d6efd !important; /* Bootstrap primary */
+    transition: color 0.2s ease;
+}
+
+.navbar-brand:hover {
+    color: #0056b3 !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #212529 !important;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #0d6efd !important;
+}
+
+/* Home Page - Gallery */
+.gallery-container {
+    padding: 3rem 0 30px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    filter: brightness(1.1);
+}
+
+.card-body {
+    padding: 1.25rem;
+    background: #ffffff;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.card-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Unsplash-Inspired Search Bar */
+.unsplash-search {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.unsplash-search h1 {
+    font-weight: 700;
+    color: #212529;
+}
+
+.unsplash-search p {
+    color: #6c757d;
+}
+
+.unsplash-search .input-group {
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+}
+
+.unsplash-search .input-group:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.unsplash-search .form-control {
+    border: none;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    font-size: 1rem;
+    color: #212529;
+    background: transparent;
+}
+
+.unsplash-search .form-control::placeholder {
+    color: #6c757d; /* Bootstrap secondary */
+    opacity: 0.8;
+}
+
+.unsplash-search .form-control:focus {
+    box-shadow: none;
+    background: transparent;
+}
+
+.unsplash-search .form-select {
+    border: none;
+    border-radius: 0 50px 50px 0;
+    background: #f1f3f5; /* Light gray for contrast */
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    max-width: 150px;
+}
+
+.unsplash-search .form-select:focus {
+    box-shadow: none;
+}
+
+.unsplash-search .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    animation: slideIn 0.3s ease;
+}
+
+#modalImage {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 10px;
+    filter: brightness(1.3);
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+#modalImage.fade-out {
+    opacity: 0;
+}
+
+#modalTitle {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #333;
+}
+
+#modalDescription {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    text-align: center;
+    color: #666;
+}
+
+.close {
+    color: #ac2626;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.left-btn {
+    left: 10px;
+}
+
+.right-btn {
+    right: 10px;
+}
+
+.control-btn {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.top-right-btn {
+    top: 10px;
+    right: 50px;
+}
+
+.thumbnail-bar {
+    max-height: 100px;
+    overflow-x: auto;
+}
+
+.thumbnail-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.thumbnail-img.active-thumbnail {
+    opacity: 0.5;
+    border: 2px solid #0d6efd;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Photo Detail Page */
+.photo-detail {
+    padding: 2rem 0;
+    position: relative;
+}
+
+.photo-detail img {
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: cover;
+}
+
+.photo-detail .info-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 1rem;
+}
+
+.photo-detail h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.photo-detail p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.photo-detail .btn-primary {
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    transition: transform 0.2s ease;
+}
+
+.photo-detail .btn-primary:hover {
+    transform: scale(1.05);
+}
+
+/* Admin Panel */
+.admin-container {
+    background: #212529; /* Bootstrap dark */
+    border-radius: 10px;
+    padding: 2rem;
+    color: #ffffff;
+    margin: 2rem 0;
+}
+
+.admin-container h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    background: #ffffff;
+    color: #212529;
+    transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: #e9ecef;
+}
+
+.table img {
+    border-radius: 6px;
+}
+
+/* Admin Forms */
+.admin-container .form-control,
+.admin-container .form-select {
+    background: #343a40; /* Bootstrap dark gray */
+    border: none;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container .form-control:focus,
+.admin-container .form-select:focus {
+    background: #343a40;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.admin-container .form-label {
+    color: #ced4da;
+    font-weight: 500;
+}
+
+.admin-container .btn-primary,
+.admin-container .btn-success,
+.admin-container .btn-warning,
+.admin-container .btn-danger {
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+.admin-container .btn:hover {
+    transform: scale(1.05);
+}
+
+/* Login Page */
+.card-login {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+}
+
+/* Footer */
+footer {
+    background: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem 0;
+}
+
+footer p {
+    margin: 0;
+    color: #6c757d;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .photo-detail img {
+        max-height: 60vh;
+    }
+
+    .photo-detail .info-card {
+        position: static;
+        margin-top: 1rem;
+    }
+
+    .unsplash-search {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-img-top {
+        height: 200px;
+    }
+
+    .photo-detail img {
+        max-height: 50vh;
+    }
+
+    .photo-detail h2 {
+        font-size: 1.5rem;
+    }
+
+    .unsplash-search .input-group {
+        flex-direction: column;
+    }
+
+    .unsplash-search .form-control,
+    .unsplash-search .form-select {
+        border-radius: 50px;
+        margin-bottom: 0.5rem;
+        padding: 0.75rem 1rem;
+        max-width: none;
+    }
+
+    .unsplash-search .form-select {
+        background: #ffffff;
+    }
+
+    .unsplash-search .search-icon {
+        left: 1rem;
+    }
+
+    .modal {
+        width: 90%;
+        padding: 10px;
+    }
+
+    #modalImage {
+        max-height: 300px;
+    }
+
+    #modalTitle {
+        font-size: 1.8rem;
+    }
+
+    #modalDescription {
+        font-size: 1rem;
+    }
+}
