@@ -11,8 +11,75 @@
 <body class="bg-light">
 
     <div class="container my-5 admin-container">
-        <h2 class="mb-4">Admin Dashboard</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Admin Dashboard</h2>
+            <a href="/admin/logout" class="btn btn-danger">Logout</a>
+        </div>
 
+        <!-- Section for Managing Users -->
+        <h3 class="mb-3">Manage Users</h3>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Add New User</h5>
+                <% if (userError) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= userError %>
+                    </div>
+                <% } %>
+                <form action="/admin/add-user" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add User</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table for Existing Users -->
+        <div class="table-responsive mb-5">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.role %></td>
+                        </tr>
+                    <% }) %>
+                    <% if (!users || users.length === 0) { %>
+                        <tr>
+                            <td colspan="3" class="text-center">No users found.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Existing Section for Managing Photos -->
+        <h3 class="mb-3">Manage Photos</h3>
         <a href="/admin/add-photo" class="btn btn-success mb-4">Add New Photo</a>
 
         <div class="table-responsive">

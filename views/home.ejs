@@ -20,9 +20,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/login">Admin Login</a>
-                    </li>
+                    <% if (sessionUser) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/logout">Logout</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/login"> Login</a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -54,7 +60,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <img src="<%= photo.image_path || '/images/fallback.jpg' %>" class="card-img-top" alt="<%= photo.name || 'Untitled' %>"
-                                onclick="openModal('<%= photo.image_path || '/images/fallback.jpg' %>', '<%= photo.name ? photo.name.replace(/'/g, '\\\'') : 'Untitled' %>', '<%= photo.description ? photo.description.replace(/'/g, '\\\'') : '' %>', <%= index %>)">
+                                onclick="openModal('<%= photo.image_path || '/images/fallback.jpg' %>', '<%= photo.name ? photo.name.replace(/'/g, '\\\\\'') : 'Untitled' %>', '<%= photo.description ? photo.description.replace(/'/g, '\\\\\'') : '' %>', <%= index %>)">
                             <div class="card-body">
                                 <h5 class="card-title"><%= photo.name || 'Untitled' %></h5>
                                 <p class="card-text"><%= photo.description ? photo.description.substring(0, 80) + '...' : 'No description' %></p>
